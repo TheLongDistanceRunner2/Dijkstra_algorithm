@@ -5,19 +5,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class algorytmDijskrty {
-    public void obliczNajkrotszaDroge(Wierzcholek wierzcholek) {
+public class AlgorytmDijkstry {
+    public void obliczNajkrotszaDrogeDlaWierzcholka(Wierzcholek wierzcholek) {
         // wybieramy aktualny wierzcholek i ustawiamy zerową odległość od niego:
         wierzcholek.setOdleglosc(0);
-        PriorityQueue<Wierzcholek> priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(wierzcholek);
-        // oznaczamy wierzcholek jako odwiedzony:
+        PriorityQueue<Wierzcholek> kolejkaPriorytetowa = new PriorityQueue<>();
+        // dodajemy go do kolejki priorytetowej:
+        kolejkaPriorytetowa.add(wierzcholek);
+        // oznaczamy wierzchołek jako odwiedzony:
         wierzcholek.setCzyOdwiedzono(true);
 
         // dopóki w kolejce znajdują się wierzchołki do sprawdzenia:
-        while (!priorityQueue.isEmpty()) {
+        while (!kolejkaPriorytetowa.isEmpty()) {
             // pobieramy z kolejki wierzchołek o najmniejszej odległości od wybranego na początku wierzchołka:
-            Wierzcholek tmpWierzcholek = priorityQueue.poll();
+            Wierzcholek tmpWierzcholek = kolejkaPriorytetowa.poll();
 
             // sprawdzamy wszystkie krawędzie wychodzące z tego wierzchołka:
             for (Krawedz krawedz : tmpWierzcholek.getSasiedzi()) {
@@ -26,30 +27,30 @@ public class algorytmDijskrty {
                 // jeśli nie odwiedzono jeszcze danego wierzchołka:
                 if (!v.CzyOdwiedzono()) {
                     // nadajemy mu nową odległość, poprzez dodanie wartości
-                    // aktualnego węzła do wagi krawędzi łączącej nowy wierzchołek
+                    // aktualnego węzła do wagi krawędzi łączącej nowy wierzchołek:
                     double nowaOdleglosc = tmpWierzcholek.getOdleglosc() + krawedz.getWaga();
 
-                    // jesli nowa odleglosc jest mniejsza od wartości tego wierzchołka
-                    // to zastępujemy ją nową, a jeśli większa, to zostawiamy starą
+                    // jesli nowa odleglosc jest mniejsza od wartości tego wierzchołka,
+                    // to zastępujemy ją nową, a jeśli większa, to zostawiamy starą:
                     if (nowaOdleglosc < v.getOdleglosc()) {
                         // usuwamy wierzcholek z kolejki:
-                        priorityQueue.remove(v);
-                        // ustaiamy mu nową odległość:
+                        kolejkaPriorytetowa.remove(v);
+                        // ustawiamy mu nową odległość:
                         v.setOdleglosc(nowaOdleglosc);
                         // ustawiamy mu poprzednik:
                         v.setPoprzednik(tmpWierzcholek);
-                        // i dodajemy go do kolejki:
-                        priorityQueue.add(v);
+                        // i dodajemy wierzcholek do kolejki:
+                        kolejkaPriorytetowa.add(v);
                     }
                 }
             }
 
-            // przestawiamy flagę, oznaczając wierzhołek jako odwiedzony:
+            // przestawiamy flagę, oznaczając wierzchołek jako odwiedzony:
             tmpWierzcholek.setCzyOdwiedzono(true);
         }
     }
 
-    public List<Wierzcholek> getNajkrotszaDrogeDoWwierzcholka(Wierzcholek koncowyWierzcholek) {
+    public List<Wierzcholek> getNajkrotszaDrogaDoWierzcholka(Wierzcholek koncowyWierzcholek) {
         List<Wierzcholek> droga = new ArrayList<>();
 
         // przechodzimy graf, dodajac napotkane wierzcholki do drogi:
@@ -57,7 +58,7 @@ public class algorytmDijskrty {
             droga.add(w);
         }
 
-        // odwracamy kolejnosc drogi:
+        // odwracamy kolejnosc przejscia drogi:
         Collections.reverse(droga);
 
         return droga;
