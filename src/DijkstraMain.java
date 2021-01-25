@@ -2,48 +2,48 @@
 
 public class DijkstraMain {
     public static void main(String[] args) {
-        Vertex vertexHome = new Vertex("Home");
-        Vertex vertexA = new Vertex("A");
-        Vertex vertexB = new Vertex("B");
-        Vertex vertexC = new Vertex("C");
-        Vertex vertexD = new Vertex("D");
-        Vertex vertexE = new Vertex("E");
-        Vertex vertexF = new Vertex("F");
-        Vertex vertexSchool = new Vertex("School");
+        Wierzcholek wierzcholekHome = new Wierzcholek("Home");
+        Wierzcholek wierzcholekA = new Wierzcholek("A");
+        Wierzcholek wierzcholekB = new Wierzcholek("B");
+        Wierzcholek wierzcholekC = new Wierzcholek("C");
+        Wierzcholek wierzcholekD = new Wierzcholek("D");
+        Wierzcholek wierzcholekE = new Wierzcholek("E");
+        Wierzcholek wierzcholekF = new Wierzcholek("F");
+        Wierzcholek wierzcholekSchool = new Wierzcholek("School");
 
-        vertexHome.addNeighbour(new Edge(3, vertexHome, vertexA));
-        vertexHome.addNeighbour(new Edge(2, vertexHome, vertexB));
-        vertexHome.addNeighbour(new Edge(5, vertexHome, vertexC));
+        wierzcholekHome.dodajSasiada(new Krawedz(3, wierzcholekHome, wierzcholekA));
+        wierzcholekHome.dodajSasiada(new Krawedz(2, wierzcholekHome, wierzcholekB));
+        wierzcholekHome.dodajSasiada(new Krawedz(5, wierzcholekHome, wierzcholekC));
 
-        vertexA.addNeighbour(new Edge(3, vertexA, vertexHome));
-        vertexA.addNeighbour(new Edge(3, vertexA, vertexD));
+        wierzcholekA.dodajSasiada(new Krawedz(3, wierzcholekA, wierzcholekHome));
+        wierzcholekA.dodajSasiada(new Krawedz(3, wierzcholekA, wierzcholekD));
 
-        vertexB.addNeighbour(new Edge(2, vertexB, vertexHome));
-        vertexB.addNeighbour(new Edge(1, vertexB, vertexD));
-        vertexB.addNeighbour(new Edge(6, vertexB, vertexE));
+        wierzcholekB.dodajSasiada(new Krawedz(2, wierzcholekB, wierzcholekHome));
+        wierzcholekB.dodajSasiada(new Krawedz(1, wierzcholekB, wierzcholekD));
+        wierzcholekB.dodajSasiada(new Krawedz(6, wierzcholekB, wierzcholekE));
 
-        vertexC.addNeighbour(new Edge(5, vertexC, vertexHome));
-        vertexC.addNeighbour(new Edge(2, vertexC, vertexE));
+        wierzcholekC.dodajSasiada(new Krawedz(5, wierzcholekC, wierzcholekHome));
+        wierzcholekC.dodajSasiada(new Krawedz(2, wierzcholekC, wierzcholekE));
 
-        vertexD.addNeighbour(new Edge(3, vertexC, vertexA));
-        vertexD.addNeighbour(new Edge(1, vertexC, vertexB));
-        vertexD.addNeighbour(new Edge(4, vertexC, vertexF));
+        wierzcholekD.dodajSasiada(new Krawedz(3, wierzcholekC, wierzcholekA));
+        wierzcholekD.dodajSasiada(new Krawedz(1, wierzcholekC, wierzcholekB));
+        wierzcholekD.dodajSasiada(new Krawedz(4, wierzcholekC, wierzcholekF));
 
-        vertexE.addNeighbour(new Edge(6, vertexE, vertexB));
-        vertexE.addNeighbour(new Edge(2, vertexE, vertexC));
-        vertexE.addNeighbour(new Edge(1, vertexE, vertexF));
-        vertexE.addNeighbour(new Edge(4, vertexE, vertexSchool));
+        wierzcholekE.dodajSasiada(new Krawedz(6, wierzcholekE, wierzcholekB));
+        wierzcholekE.dodajSasiada(new Krawedz(2, wierzcholekE, wierzcholekC));
+        wierzcholekE.dodajSasiada(new Krawedz(1, wierzcholekE, wierzcholekF));
+        wierzcholekE.dodajSasiada(new Krawedz(4, wierzcholekE, wierzcholekSchool));
 
-        vertexF.addNeighbour(new Edge(4, vertexF, vertexD));
-        vertexF.addNeighbour(new Edge(1, vertexF, vertexE));
-        vertexF.addNeighbour(new Edge(2, vertexF, vertexSchool));
+        wierzcholekF.dodajSasiada(new Krawedz(4, wierzcholekF, wierzcholekD));
+        wierzcholekF.dodajSasiada(new Krawedz(1, wierzcholekF, wierzcholekE));
+        wierzcholekF.dodajSasiada(new Krawedz(2, wierzcholekF, wierzcholekSchool));
 
-        vertexSchool.addNeighbour(new Edge(4, vertexSchool, vertexE));
-        vertexSchool.addNeighbour(new Edge(2, vertexSchool, vertexF));
+        wierzcholekSchool.dodajSasiada(new Krawedz(4, wierzcholekSchool, wierzcholekE));
+        wierzcholekSchool.dodajSasiada(new Krawedz(2, wierzcholekSchool, wierzcholekF));
 
-        DijkstraShortestPath shortestPath = new DijkstraShortestPath();
-        shortestPath.computeShortestPaths(vertexHome);
+        algorytmDijskrty shortestPath = new algorytmDijskrty();
+        shortestPath.obliczNajkrotszaDroge(wierzcholekHome);
 
-        System.out.println("Shortest path from Home to School: " + shortestPath.getShortestPathTo(vertexSchool));
+        System.out.println("Shortest path from Home to School: " + shortestPath.getNajkrotszaDrogeDoWwierzcholka(wierzcholekSchool));
     }
 }
